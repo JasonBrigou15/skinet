@@ -14,12 +14,39 @@ namespace Core.Specifications
 
         public Expression<Func<T, bool>> Criteria { get; }
 
-        public List<Expression<Func<T, object>>> Includes { get; } = 
+        public List<Expression<Func<T, object>>> Includes { get; } =
             new List<Expression<Func<T, object>>>();
 
-            protected void AddInclude(Expression<Func<T, object>> IncludeExpression)
-            {
-                Includes.Add(IncludeExpression);
-            }
+        public Expression<Func<T, object>> OrderBy { get; private set; }
+
+        public Expression<Func<T, object>> OrderByDescending { get; private set; }
+
+        public int Take { get; private set; }
+
+        public int Skip { get; private set; }
+
+        public bool IsPagingEnabled { get; private set; }
+
+        protected void AddInclude(Expression<Func<T, object>> IncludeExpression)
+        {
+            Includes.Add(IncludeExpression);
+        }
+
+        protected void AddorderBy(Expression<Func<T, object>> orderByExpression)
+        {
+            OrderBy = orderByExpression;
+        }
+
+        protected void AddorderByDescending(Expression<Func<T, object>> orderByDescExpression)
+        {
+            OrderByDescending = orderByDescExpression;
+        }
+
+        protected void ApplyPaging(int skip, int take)
+        {
+            Skip = Skip;
+            Take = take;
+            IsPagingEnabled = true;
+        }
     }
 }
