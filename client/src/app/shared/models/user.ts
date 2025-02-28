@@ -1,6 +1,6 @@
 export type User = {
-    firstname: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     email: string;
     address: Address;
 }
@@ -11,5 +11,5 @@ export type Address = {
     city: string;
     state: string;
     country: string;
-    postalcode: string;
+    postalCode: string;
 }
