@@ -131,7 +131,6 @@ export class StripeService {
           this.cartService.setCart(cart);
           return cart;
         }
-        return cart;
       })
     )
   }
