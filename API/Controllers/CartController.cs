@@ -17,7 +17,7 @@ public class CartController(ICartService cartService) : BaseApiController
     [HttpPost]
     public async Task<ActionResult<ShoppingCart>> UpdateCart(ShoppingCart cart)
     {
-        var updatedCart = await cartService.SetCardAsync(cart);
+        var updatedCart = await cartService.SetCartAsync(cart);
 
         if (updatedCart == null) return BadRequest("Problem with cart");
 
