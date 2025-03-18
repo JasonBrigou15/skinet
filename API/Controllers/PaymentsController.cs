@@ -69,20 +69,26 @@ public class PaymentsController(IPaymentService paymentService,
         if (intent.Status == "succeeded")
         {
             var spec = new OrderSpecification(intent.Id, true);
+
             var order = await unit.Repository<Order>().GetEntityWithSpec(spec)
                 ?? throw new Exception("Order not found");
+
             var orderTotalInCents = (long)Math.Round(order.GetTotal() * 100,
                 MidpointRounding.AwayFromZero);
+
             if (orderTotalInCents != intent.Amount)
             {
-                order.Status = OrderStatus.PaymentMisMatch;
+                order.Status = OrderStatus.PaymentMismatch;
             }
             else
             {
                 order.Status = OrderStatus.PaymentReceived;
             }
+
             await unit.Complete();
+
             var connectionId = NotificationHub.GetConnectionIdByEmail(order.BuyerEmail);
+
             if (!string.IsNullOrEmpty(connectionId))
             {
                 await hubContext.Clients.Client(connectionId)
