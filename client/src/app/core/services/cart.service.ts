@@ -3,7 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Cart, CartItem, Coupon } from '../../shared/models/cart';
 import { Product } from '../../shared/models/product';
-import { map } from 'rxjs';
+import { firstValueFrom, map, tap } from 'rxjs';
 import { DeliveryMethod } from '../../shared/models/deliveryMethod';
 
 
@@ -55,9 +55,11 @@ export class CartService {
   }
 
   setCart(cart: Cart) {
-    return this.http.post<Cart>(this.baseUrl + 'cart', cart).subscribe({
-      next: cart => this.cart.set(cart)
-    })
+    return this.http.post<Cart>(this.baseUrl + 'cart', cart).pipe(
+      tap(cart => {
+        this.cart.set(cart)
+      })
+    )
   }
   
   applyDiscount(code: string) {
