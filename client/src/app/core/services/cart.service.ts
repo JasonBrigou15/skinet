@@ -66,6 +66,7 @@ export class CartService {
     return this.http.get<Coupon>(this.baseUrl + 'coupons/' + code);
   }
 
+
   async addItemToCart(item: CartItem | Product, quantity = 1) {
     const cart = this.cart() ?? this.createCart();
     if (this.isProduct(item)) {
