@@ -9,11 +9,12 @@ public class Order : BaseEntity
     public PaymentSummary PaymentSummary { get; set; } = null!;
     public List<OrderItem> OrderItems { get; set; } = [];
     public decimal SubTotal { get; set; }
+    public decimal Discount { get; set; }
     public OrderStatus Status { get; set; } = OrderStatus.Pending;
     public required string  PaymentIntendId { get; set; }
 
     public decimal GetTotal()
     {
-        return SubTotal + DeliveryMethod.Price;
+        return SubTotal - Discount + DeliveryMethod.Price;
     }
 }
