@@ -62,7 +62,7 @@ public class ProductsController(IUnitOfWork unit) : BaseApiController
 
         return BadRequest("Problem updating the product");
     }
-
+    
     [InvalidateCache("api/products|")]
     [Authorize(Roles ="Admin")]
     [HttpDelete("{id:int}")]
